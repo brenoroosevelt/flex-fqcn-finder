@@ -26,7 +26,7 @@ use Closure;
  * @method self isUserDefined()
  * @method self namespaceEqualsTo(string $namespace)
  * @method self not(FqcnSpecification $specification)
- * @method self usingTrait(string $trait)
+ * @method self useTrait(string $trait)
  * @method self anyOf(FqcnSpecification $specification, FqcnSpecification ...$specifications)
  * @method self allOf(FqcnSpecification $specification, FqcnSpecification ...$specifications)
  * @method self and(FqcnSpecification $specification, FqcnSpecification ...$specifications)

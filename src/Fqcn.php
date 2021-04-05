@@ -4,12 +4,15 @@ declare(strict_types=1);
 namespace FlexFqcnFinder;
 
 use FlexFqcnFinder\Filter\FqcnSpecification;
+use FlexFqcnFinder\Finder\ComposerClassMap;
+use FlexFqcnFinder\Finder\Decorator\CachedFqcnFinder;
 use FlexFqcnFinder\Finder\Decorator\FilteringFqcnFinder;
 use FlexFqcnFinder\Finder\FqcnFinder;
 use FlexFqcnFinder\Finder\GetDeclaredClasses;
 use FlexFqcnFinder\Finder\GetDeclaredInterfaces;
 use FlexFqcnFinder\Finder\GetDeclaredTraits;
 use FlexFqcnFinder\Repository\FilesFromDir;
+use Psr\SimpleCache\CacheInterface;
 
 class Fqcn implements FqcnFinderInterface
 {
@@ -17,6 +20,16 @@ class Fqcn implements FqcnFinderInterface
      * @var FqcnSpecification|null
      */
     protected $filter;
+
+    /**
+     * @var CacheInterface
+     */
+    private $cache;
+
+    /**
+     * @var string
+     */
+    protected $cacheKey;
 
     /**
      * @var FqcnFinderInterface
@@ -57,9 +70,22 @@ class Fqcn implements FqcnFinderInterface
         return $this;
     }
 
+    public function includeComposerClassMap(string $pathToComposerAutoload): Fqcn
+    {
+        $this->finders[] = new ComposerClassMap($pathToComposerAutoload);
+        return $this;
+    }
+
     public function withFilter(FqcnSpecification $filter): Fqcn
     {
         $this->filter = $filter;
+        return $this;
+    }
+
+    public function withCache(CacheInterface $cache, string $cacheKey): Fqcn
+    {
+        $this->cache = $cache;
+        $this->cacheKey = $cacheKey;
         return $this;
     }
 
@@ -78,8 +104,13 @@ class Fqcn implements FqcnFinderInterface
     public function find(): array
     {
         $finder = new FqcnFinderComposite(...$this->finders);
+
         if ($this->filter instanceof FqcnSpecification) {
             $finder = new FilteringFqcnFinder($finder, $this->filter);
+        }
+
+        if ($this->cache instanceof CacheInterface) {
+            $finder = new CachedFqcnFinder($finder, $this->cache, $this->cacheKey);
         }
 
         return $finder->find();

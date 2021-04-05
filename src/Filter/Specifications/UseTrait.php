@@ -7,7 +7,7 @@ use FlexFqcnFinder\Filter\FqcnSpecification;
 use FlexFqcnFinder\Filter\ReflectionSpecificationTrait;
 use ReflectionClass;
 
-class UsingTrait implements FqcnSpecification
+class UseTrait implements FqcnSpecification
 {
     use ReflectionSpecificationTrait;
 
