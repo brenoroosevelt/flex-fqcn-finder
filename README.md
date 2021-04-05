@@ -49,7 +49,8 @@ $fqcns =
         ->withFilter(
             Filter::by() // or: Filter::anyOf()
                 ->implementsInterface('MyInterface')
-                ->hasMethod('method'))
+                ->hasMethod('method')
+        )
         ->includeDeclaredClasses()
         ->withCache(new MyPsr16Cache(), 'cacheKey')
         ->find();
