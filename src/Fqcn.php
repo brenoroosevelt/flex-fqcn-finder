@@ -23,6 +23,11 @@ class Fqcn implements FqcnFinderInterface
      */
     protected $finders = [];
 
+    public static function new(): Fqcn
+    {
+        return new self();
+    }
+
     public static function fromDir(string $dir, bool $recursive = true): Fqcn
     {
         return (new self())->addDirectory($dir, $recursive);
