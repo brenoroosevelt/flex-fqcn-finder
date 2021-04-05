@@ -37,6 +37,7 @@ $ composer require brenoroosevelt/flex-fqcn-finder
 
 ```php
 use FlexFqcnFinder\Fqcn;
+use FlexFqcnFinder\Filter\Filter;
 
 $recursive = true;
 
@@ -44,7 +45,7 @@ $fqcns = Fqcn::new()
             ->addDirectory('/path/to/dir1', $recursive)
             ->addDirectory('/path/to/dir2', $recursive)
             ->withFilter(
-                Filter::by()
+                Filter::by()  // or: Filter::anyOf()
                     ->implementsInterface(MyInterface::class)
                     ->hasMethod('method')
                     ->isInstantiable()
