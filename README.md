@@ -57,34 +57,6 @@ $fqcns = Fqcn::new()
             ->find();
 ```
 
-### Filters
-The filters were designed according to the Specification Pattern. You can chain the following filters using `Filter::by()` or `Filter::anyOf()`:
-
-* `apply(Closure $fn)`
-* `classNameEndsWith(string $value)`
-* `classNameStartsWith(string $value)`
-* `hasMethod(string $method)`
-* `implementsInterface(string $interface)`
-* `isAbstract()`
-* `isClass()`
-* `isCloneable()`
-* `isFinal()`
-* `isInstanceOf(string $subject)`
-* `isInstantiable()`
-* `isInterface()`
-* `isInternal()`
-* `isIterateable()`
-* `isSubClassOf(string $class)`
-* `isTrait()`
-* `isUserDefined()`
-* `namespaceEqualsTo(string $namespace)`
-* `not(FqcnSpecification $specification)`
-* `usingTrait(string $trait)`
-* `anyOf(FqcnSpecification $specification, FqcnSpecification ...$specifications)`
-* `allOf(FqcnSpecification $specification, FqcnSpecification ...$specifications)`
-* `and(FqcnSpecification $specification, FqcnSpecification ...$specifications)`
-* `or(FqcnSpecification $specification, FqcnSpecification ...$specifications)`
-
 ### Composite and Decorator
 
 As you could see above, this package provides a helper for composing and creating filters. However, you can use the filters, decorators and compositions on your own.
@@ -131,6 +103,67 @@ $filtered = new FilteringFqcnFinder(
 $cached = new CachedFqcnFinder($filtered, new MyPsr16Cache(), 'cacheKey');
 
 $fqcns = $cached->find();
+```
+
+### Filters
+The filters were designed according to the Specification Pattern. You can chain the following filters using `Filter::by()` or `Filter::anyOf()`:
+
+* `apply(Closure $fn)`
+* `classNameEndsWith(string $value)`
+* `classNameStartsWith(string $value)`
+* `hasMethod(string $method)`
+* `implementsInterface(string $interface)`
+* `isAbstract()`
+* `isClass()`
+* `isCloneable()`
+* `isFinal()`
+* `isInstanceOf(string $subject)`
+* `isInstantiable()`
+* `isInterface()`
+* `isInternal()`
+* `isIterateable()`
+* `isSubClassOf(string $class)`
+* `isTrait()`
+* `isUserDefined()`
+* `namespaceEqualsTo(string $namespace)`
+* `not(FqcnSpecification $specification)`
+* `usingTrait(string $trait)`
+* `anyOf(FqcnSpecification $specification, FqcnSpecification ...$specifications)`
+* `allOf(FqcnSpecification $specification, FqcnSpecification ...$specifications)`
+* `and(FqcnSpecification $specification, FqcnSpecification ...$specifications)`
+* `or(FqcnSpecification $specification, FqcnSpecification ...$specifications)`
+
+The filters can be used with `FlexFqcnFinder\Finder\Decorator\FilteringFqcnFinder` decorator:
+
+```php
+<?php
+use FlexFqcnFinder\Finder\FqcnFinder;
+use FlexFqcnFinder\Repository\FilesFromDir;
+use FlexFqcnFinder\Finder\Decorator\FilteringFqcnFinder;
+use FlexFqcnFinder\Filter\Specifications\IsSubClassOf;
+
+$filtered = new FilteringFqcnFinder(
+    new FqcnFinder(new FilesFromDir(__DIR__)),
+    new IsSubClassOf('MyBaseClass')
+);
+
+// Or chaining filters:
+
+$filtered = new FilteringFqcnFinder(
+    new FqcnFinder(new FilesFromDir(__DIR__)),
+    Filter::anyOf()
+        ->implementsInterface('MyInterface')
+        ->hasMethod('execute')
+        ->and(
+            Filter::by()
+                ->usingTrait('MyTrait')
+                ->apply(function($fqcn) {
+                    return $fqcn === 'my_condition';
+                })
+        )
+);
+
+$fqcns = $filtered->find();
 ```
 
 ## Contributing
