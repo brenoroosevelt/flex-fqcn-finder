@@ -42,26 +42,21 @@ use FlexFqcnFinder\Filter\Filter;
 
 $recursive = true;
 
-$fqcns = Fqcn::new()
-            ->addDirectory('/path/to/dir1', $recursive)
-            ->addDirectory('/path/to/dir2', !$recursive)
-            ->withFilter(
-                Filter::by()  // or: Filter::anyOf()
-                    ->implementsInterface(MyInterface::class)
-                    ->hasMethod('method')
-                    ->isInstantiable()
-                    ->classNameEndsWith('Suffix')
-            )
-            ->includeDeclaredClasses()
-            ->withCache(new MyPsr16Cache(), 'cacheKey')
-            ->find();
+$fqcns = 
+    Fqcn::new()
+        ->addDirectory('/path/to/dir1', $recursive)
+        ->addDirectory('/path/to/dir2', !$recursive)
+        ->withFilter(Filter::by()->implementsInterface('MyInterface')->hasMethod('method'))
+        ->includeDeclaredClasses()
+        ->withCache(new MyPsr16Cache(), 'cacheKey')
+        ->find();
 ```
 
 ### Composite and Decorator
 
 As you could see above, this package provides a helper for composing and creating filters. However, you can use the filters, decorators and compositions on your own way.
 
-Finders are classes that implements interface `FqcnFinderInterface`.
+The Finders are classes that implements interface `FqcnFinderInterface`.
 ```php
 <?php
 namespace FlexFqcnFinder;
@@ -75,7 +70,7 @@ interface FqcnFinderInterface
 }
 ```
 This package provides some finders:
-* `FlexFqcnFinder\Finder\FqcnFinder` (find in a directory)
+* `FlexFqcnFinder\Finder\FqcnFinder` (find classes, traits and interfaces in a directory)
 * `FlexFqcnFinder\Finder\GetDeclaredClasses`
 * `FlexFqcnFinder\Finder\GetDeclaredInterfaces`
 * `FlexFqcnFinder\Finder\GetDeclaredTraits`
