@@ -44,7 +44,7 @@ $recursive = true;
 
 $fqcns = Fqcn::new()
             ->addDirectory('/path/to/dir1', $recursive)
-            ->addDirectory('/path/to/dir2', $recursive)
+            ->addDirectory('/path/to/dir2', !$recursive)
             ->withFilter(
                 Filter::by()  // or: Filter::anyOf()
                     ->implementsInterface(MyInterface::class)
@@ -77,8 +77,11 @@ use FlexFqcnFinder\Repository\FilesFromDir;
 
 $myFinder = new FqcnFinderComposite(
     new GetDeclaredClasses(),
-    new FqcnFinder(new FilesFromDir(__DIR__))
+    new FqcnFinder(new FilesFromDir('path/to/dir1')),
+    new FqcnFinder(new FilesFromDir('path/to/dir2'))
 );
+
+$fqcns = $myFinder->find();
 ```
 
 This package provides some decorators: 
