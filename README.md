@@ -58,7 +58,7 @@ $fqcns = Fqcn::new()
 ```
 
 ### Filters
-TThe filters were designed according to the Pattern specification. You can chain the following filters using `Filter::by()` or `Filter::anyOf()`:
+The filters were designed according to the Specification Pattern. You can chain the following filters using `Filter::by()` or `Filter::anyOf()`:
 
 * `apply(Closure $fn)`
 * `classNameEndsWith(string $value)`
@@ -85,7 +85,53 @@ TThe filters were designed according to the Pattern specification. You can chain
 * `and(FqcnSpecification $specification, FqcnSpecification ...$specifications)`
 * `or(FqcnSpecification $specification, FqcnSpecification ...$specifications)`
 
-### Compose
+### Composite and Decorator
+
+As you could see above, this package provides a helper for composing and creating filters. However, you can use the filters, decorators and compositions on your own.
+
+Finders are classes that implements interface `FqcnFinderInterface`. This package provides some finders:
+* `FlexFqcnFinder\Finder\FqcnFinder` (find in a directory)
+* `FlexFqcnFinder\Finder\GetDeclaredClasses`
+* `FlexFqcnFinder\Finder\GetDeclaredInterfaces`
+* `FlexFqcnFinder\Finder\GetDeclaredTraits`
+
+You can compose finders using `FlexFqcnFinder\FqcnFinderComposite`:
+```php
+<?php
+use FlexFqcnFinder\FqcnFinderComposite;
+use FlexFqcnFinder\Finder\GetDeclaredClasses;
+use FlexFqcnFinder\Finder\FqcnFinder;
+use FlexFqcnFinder\Repository\FilesFromDir;
+
+$myFinder = new FqcnFinderComposite(
+    new GetDeclaredClasses(),
+    new FqcnFinder(new FilesFromDir(__DIR__))
+);
+```
+
+This package provides some decorators: 
+* `FlexFqcnFinder\Finder\Decorator\CachedFqcnFinder`
+* `FlexFqcnFinder\Finder\Decorator\FilteringFqcnFinder`
+
+You can decorate your finder (including compositions):
+```php
+<?php
+use FlexFqcnFinder\Finder\Decorator\CachedFqcnFinder;
+use FlexFqcnFinder\Finder\Decorator\FilteringFqcnFinder;
+use FlexFqcnFinder\Filter\Specifications\IsSubClassOf;
+
+$myFinder = /* any finder, finder composition, ... */;
+
+$filtered = new FilteringFqcnFinder(
+    $myFinder,
+    new IsSubClassOf('MyBaseClass')
+);
+
+// decorating again
+$cached = new CachedFqcnFinder($filtered, new MyPsr16Cache(), 'cacheKey');
+
+$fqcns = $cached->find();
+```
 
 ## Contributing
 
