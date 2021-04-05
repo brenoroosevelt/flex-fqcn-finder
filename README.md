@@ -59,7 +59,7 @@ $fqcns = Fqcn::new()
 
 ### Composite and Decorator
 
-As you could see above, this package provides a helper for composing and creating filters. However, you can use the filters, decorators and compositions on your own.
+As you could see above, this package provides a helper for composing and creating filters. However, you can use the filters, decorators and compositions on your own way.
 
 Finders are classes that implements interface `FqcnFinderInterface`. This package provides some finders:
 * `FlexFqcnFinder\Finder\FqcnFinder` (find in a directory)
