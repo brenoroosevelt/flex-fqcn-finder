@@ -122,9 +122,12 @@ $fqcns = $cached->find();
 ```
 
 ### Filters
+Filters can be used as a Decorator for Finders and using it is optional.
+
 The filters were designed according to the Specification Pattern. You can chain the following filters using `Filter::by()` or `Filter::anyOf()`:
 
 * `apply(Closure $fn)`
+* `belongsToNamespace(string $namespace)`
 * `classNameEndsWith(string $value)`
 * `classNameStartsWith(string $value)`
 * `hasMethod(string $method)`
