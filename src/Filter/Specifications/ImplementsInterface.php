@@ -23,8 +23,6 @@ class ImplementsInterface implements FqcnSpecification
 
     protected function isSatisfiedByReflection(string $fqcn, ReflectionClass $reflectionClass): bool
     {
-        return
-            $reflectionClass->implementsInterface($this->interface) &&
-            $this->interface !== $fqcn;
+        return $reflectionClass->implementsInterface($this->interface);
     }
 }

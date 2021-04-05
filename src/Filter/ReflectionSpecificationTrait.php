@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace FlexFqcnFinder\Filter;
 
 use ReflectionClass;
-use ReflectionException;
+use Throwable;
 
 trait ReflectionSpecificationTrait
 {
@@ -12,7 +12,7 @@ trait ReflectionSpecificationTrait
     {
         try {
             $reflectionClass = new ReflectionClass($class);
-        } catch (ReflectionException $exception) {
+        } catch (Throwable $exception) {
             return false;
         }
 

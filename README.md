@@ -4,7 +4,7 @@
 [![codecov](https://codecov.io/gh/brenoroosevelt/flex-fqcn-finder/branch/main/graph/badge.svg?token=S1QBA18IBX)](https://codecov.io/gh/brenoroosevelt/flex-fqcn-finder)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE.md)
 
-The Flex FQCN Finder allows you to find all the Fully Qualified Class Names (FQCN) available in a project. This package was designed to be fast, flexible and reliable.
+The Flex FQCN Finder allows you to find all the Fully Qualified Class Names (FQCN) available in a project. This package was designed to be flexible and reliable.
 ## Features
 
 This package supports:
@@ -75,6 +75,7 @@ interface FqcnFinderInterface
 ```
 This package provides some finders:
 * `FlexFqcnFinder\Finder\FqcnFinder` (find classes, traits and interfaces in a directory)
+* `FlexFqcnFinder\Finder\ComposerClassMap`
 * `FlexFqcnFinder\Finder\GetDeclaredClasses`
 * `FlexFqcnFinder\Finder\GetDeclaredInterfaces`
 * `FlexFqcnFinder\Finder\GetDeclaredTraits`

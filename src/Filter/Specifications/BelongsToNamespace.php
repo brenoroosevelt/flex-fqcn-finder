@@ -7,22 +7,23 @@ use FlexFqcnFinder\Filter\FqcnSpecification;
 use FlexFqcnFinder\Filter\ReflectionSpecificationTrait;
 use ReflectionClass;
 
-class HasMethod implements FqcnSpecification
+class BelongsToNamespace implements FqcnSpecification
 {
     use ReflectionSpecificationTrait;
 
     /**
      * @var string
      */
-    protected $method;
+    protected $namespace;
 
-    public function __construct(string $method)
+    public function __construct(string $namespace)
     {
-        $this->method = $method;
+        $this->namespace = $namespace;
     }
 
     protected function isSatisfiedByReflection(string $fqcn, ReflectionClass $reflectionClass): bool
     {
-        return $reflectionClass->hasMethod($this->method);
+        $namespace = $reflectionClass->getNamespaceName();
+        return substr_compare($namespace, $this->namespace, 0, strlen($this->namespace)) === 0;
     }
 }
