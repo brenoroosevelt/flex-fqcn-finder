@@ -46,7 +46,10 @@ $fqcns =
     Fqcn::new()
         ->addDirectory('/path/to/dir1', $recursive)
         ->addDirectory('/path/to/dir2', !$recursive)
-        ->withFilter(Filter::by()->implementsInterface('MyInterface')->hasMethod('method'))
+        ->withFilter(
+            Filter::by() // or: Filter::anyOf()
+                ->implementsInterface('MyInterface')
+                ->hasMethod('method'))
         ->includeDeclaredClasses()
         ->withCache(new MyPsr16Cache(), 'cacheKey')
         ->find();
