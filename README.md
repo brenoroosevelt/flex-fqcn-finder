@@ -55,6 +55,15 @@ $fqcns =
         ->includeDeclaredClasses()
         ->withCache(new MyPsr16Cache(), 'cacheKey')
         ->find();
+
+var_dump($fqcs);
+/* output
+[
+    'NamespaceA\FooClass',
+    'NamespaceB\BarClass',
+    'NamespaceC\Traits\HelperTrait'
+]
+*/
 ```
 
 ### Finders
