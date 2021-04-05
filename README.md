@@ -56,7 +56,7 @@ $fqcns =
         ->find();
 ```
 
-### Composite and Decorator
+### Finders
 
 As you could see above, this package provides a helper for composing and creating filters. However, you can use the filters, decorators and compositions on your own way.
 
@@ -80,6 +80,8 @@ This package provides some finders:
 * `FlexFqcnFinder\Finder\GetDeclaredInterfaces`
 * `FlexFqcnFinder\Finder\GetDeclaredTraits`
 
+### Composite
+
 You can compose finders using `FlexFqcnFinder\FqcnFinderComposite`:
 ```php
 <?php
@@ -96,6 +98,7 @@ $myFinder = new FqcnFinderComposite(
 
 $fqcns = $myFinder->find();
 ```
+### Decorators
 
 This package provides some decorators: 
 * `FlexFqcnFinder\Finder\Decorator\CachedFqcnFinder`
@@ -121,7 +124,7 @@ $cached = new CachedFqcnFinder($filtered, new MyPsr16Cache(), 'cacheKey');
 $fqcns = $cached->find();
 ```
 
-### Filters
+#### Filters
 Filters can be used as a Decorator for Finders and using it is optional.
 
 The filters were designed according to the Specification Pattern. You can chain the following filters using `Filter::by()` or `Filter::anyOf()`:
@@ -185,6 +188,7 @@ $filtered = new FilteringFqcnFinder(
 $fqcns = $filtered->find();
 ```
 
+#### Creating Filters
 You can create you own filter implementing interface `FqcnSpecification`:
 
 ```php
