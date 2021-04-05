@@ -34,6 +34,7 @@ Via Composer
 $ composer require brenoroosevelt/flex-fqcn-finder
 ```
 ## Usage
+This package provides the `FlexFqcnFinder\Fqcn` helper to compose, create filters and find FQCNs. You can combine the filters, decorators and compositions on your own way.
 
 ```php
 <?php
@@ -58,9 +59,7 @@ $fqcns =
 
 ### Finders
 
-As you could see above, this package provides a helper for composing and creating filters. However, you can use the filters, decorators and compositions on your own way.
-
-The Finders are classes that implements interface `FqcnFinderInterface`.
+Finders are classes that implements interface `FqcnFinderInterface` and return a list (array) of FQCNs found.
 ```php
 <?php
 namespace FlexFqcnFinder;
@@ -75,10 +74,10 @@ interface FqcnFinderInterface
 ```
 This package provides some finders:
 * `FlexFqcnFinder\Finder\FqcnFinder` (find classes, traits and interfaces in a directory)
-* `FlexFqcnFinder\Finder\ComposerClassMap`
-* `FlexFqcnFinder\Finder\GetDeclaredClasses`
-* `FlexFqcnFinder\Finder\GetDeclaredInterfaces`
-* `FlexFqcnFinder\Finder\GetDeclaredTraits`
+* `FlexFqcnFinder\Finder\ComposerClassMap` (from Composer autoload classes)
+* `FlexFqcnFinder\Finder\GetDeclaredClasses` (from `get_declared_classes()`)
+* `FlexFqcnFinder\Finder\GetDeclaredInterfaces` (from `get_declared_interfaces()`)
+* `FlexFqcnFinder\Finder\GetDeclaredTraits` (from `get_declared_traits()`)
 
 ### Composite
 
