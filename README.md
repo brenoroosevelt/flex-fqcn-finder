@@ -33,9 +33,10 @@ Via Composer
 ``` bash
 $ composer require brenoroosevelt/flex-fqcn-finder
 ```
-## Documentation
+## Usage
 
 ```php
+<?php
 use FlexFqcnFinder\Fqcn;
 use FlexFqcnFinder\Filter\Filter;
 
@@ -55,6 +56,36 @@ $fqcns = Fqcn::new()
             ->withCache(new MyPsr16Cache(), 'cacheKey')
             ->find();
 ```
+
+### Filters
+TThe filters were designed according to the Pattern specification. You can chain the following filters using `Filter::by()` or `Filter::anyOf()`:
+
+* `apply(Closure $fn)`
+* `classNameEndsWith(string $value)`
+* `classNameStartsWith(string $value)`
+* `hasMethod(string $method)`
+* `implementsInterface(string $interface)`
+* `isAbstract()`
+* `isClass()`
+* `isCloneable()`
+* `isFinal()`
+* `isInstanceOf(string $subject)`
+* `isInstantiable()`
+* `isInterface()`
+* `isInternal()`
+* `isIterateable()`
+* `isSubClassOf(string $class)`
+* `isTrait()`
+* `isUserDefined()`
+* `namespaceEqualsTo(string $namespace)`
+* `not(FqcnSpecification $specification)`
+* `usingTrait(string $trait)`
+* `anyOf(FqcnSpecification $specification, FqcnSpecification ...$specifications)`
+* `allOf(FqcnSpecification $specification, FqcnSpecification ...$specifications)`
+* `and(FqcnSpecification $specification, FqcnSpecification ...$specifications)`
+* `or(FqcnSpecification $specification, FqcnSpecification ...$specifications)`
+
+### Compose
 
 ## Contributing
 
