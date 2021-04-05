@@ -56,7 +56,7 @@ $fqcns =
         ->withCache(new MyPsr16Cache(), 'cacheKey')
         ->find();
 
-var_dump($fqcs);
+var_dump($fqcns);
 /* output
 [
     'NamespaceA\FooClass',
