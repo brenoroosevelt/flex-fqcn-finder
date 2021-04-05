@@ -61,7 +61,20 @@ $fqcns = Fqcn::new()
 
 As you could see above, this package provides a helper for composing and creating filters. However, you can use the filters, decorators and compositions on your own way.
 
-Finders are classes that implements interface `FqcnFinderInterface`. This package provides some finders:
+Finders are classes that implements interface `FqcnFinderInterface`.
+```php
+<?php
+namespace FlexFqcnFinder;
+
+interface FqcnFinderInterface
+{
+    /**
+     * @return string[] The fully qualified class names found
+     */
+    public function find(): array;
+}
+```
+This package provides some finders:
 * `FlexFqcnFinder\Finder\FqcnFinder` (find in a directory)
 * `FlexFqcnFinder\Finder\GetDeclaredClasses`
 * `FlexFqcnFinder\Finder\GetDeclaredInterfaces`
@@ -167,6 +180,37 @@ $filtered = new FilteringFqcnFinder(
 );
 
 $fqcns = $filtered->find();
+```
+
+You can create you own filter implementing interface `FqcnSpecification`:
+
+```php
+<?php
+namespace FlexFqcnFinder\Filter;
+
+interface FqcnSpecification
+{
+    public function isSatisfiedBy(string $fqcn): bool;
+}
+```
+
+```php
+<?php
+namespace Foo;
+
+use FlexFqcnFinder\Filter\FqcnSpecification;
+
+MyFilter implements FqcnSpecification
+{
+    public function isSatisfiedBy(string $fqcn): bool
+    {
+        if($fqcn === /* */) {
+            return true;
+        }
+        
+        return false;
+    }
+}
 ```
 
 ## Contributing
