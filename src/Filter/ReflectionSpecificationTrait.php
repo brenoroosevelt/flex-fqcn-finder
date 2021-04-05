@@ -11,10 +11,12 @@ trait ReflectionSpecificationTrait
     public function isSatisfiedBy(string $class): bool
     {
         try {
-            return $this->isSatisfiedByReflection($class, new ReflectionClass($class));
+            $reflectionClass = new ReflectionClass($class);
         } catch (ReflectionException $exception) {
             return false;
         }
+
+        return $this->isSatisfiedByReflection($class, $reflectionClass);
     }
 
     abstract protected function isSatisfiedByReflection(string $fqcn, ReflectionClass $reflectionClass): bool;

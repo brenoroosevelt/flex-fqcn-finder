@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace FlexFqcnFinder\Test;
 
 use FlexFqcnFinder\Filter\Filter;
+use FlexFqcnFinder\Finder\ComposerClassMap;
 use FlexFqcnFinder\Finder\Decorator\FilteringFqcnFinder;
 use FlexFqcnFinder\Finder\FqcnFinder;
 use FlexFqcnFinder\Fqcn;
