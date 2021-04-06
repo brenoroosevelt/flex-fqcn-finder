@@ -192,16 +192,6 @@ You can create you own filter implementing interface `FqcnSpecification`:
 
 ```php
 <?php
-namespace FlexFqcnFinder\Filter;
-
-interface FqcnSpecification
-{
-    public function isSatisfiedBy(string $fqcn): bool;
-}
-```
-
-```php
-<?php
 namespace Foo;
 
 use FlexFqcnFinder\Filter\FqcnSpecification;
