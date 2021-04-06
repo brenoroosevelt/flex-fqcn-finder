@@ -7,30 +7,23 @@
 The Flex FQCN Finder allows you to find all the Fully Qualified Class Names (FQCN) available in a project. This package was designed to be flexible and reliable.
 ## Features
 
-- Find classes, traits and interfaces;
+- Find classes, traits and interfaces (PSR-4 complaint);
 - Search in directories (recursively or not);
-- Apply filters;
-- Use cache (PSR-16).
-- Compose finders with declared classes, traits and interfaces. 
+- Many filter options;
+- Cache (PSR-16 complaint).
+- Composite finders. 
+- Get classes from Composer ClassMap. 
 
 ## Requirements
 
-The following versions of PHP are supported:
-
-* PHP 7.0
-* PHP 7.1
-* PHP 7.2
-* PHP 7.3
-* PHP 7.4
-* PHP 8.0
+The following versions of PHP are supported: `7.0`, `7.1`, `7.2`, `7.3`, `7.4`, `8.0`.
 
 ## Install
-
-Via Composer
 
 ``` bash
 $ composer require brenoroosevelt/flex-fqcn-finder
 ```
+
 ## Usage
 Use the `FlexFqcnFinder\Fqcn` helper to apply filters, decorators and compositions on your own way.
 
@@ -66,7 +59,7 @@ var_dump($fqcns);
 
 ### Finders
 
-Finders are classes that implements interface `FqcnFinderInterface` and return a list (array) of FQCNs found.
+Finders are classes that implement interface `FqcnFinderInterface` and return a list (array) of FQCNs found.
 ```php
 <?php
 namespace FlexFqcnFinder;
@@ -88,7 +81,7 @@ This package provides some finders:
 
 ### Composite
 
-You can compose finders using `FlexFqcnFinder\FqcnFinderComposite`:
+You can compose finders using the `FlexFqcnFinder\FqcnFinderComposite`:
 ```php
 <?php
 use FlexFqcnFinder\FqcnFinderComposite;
@@ -106,11 +99,11 @@ $fqcns = $myFinder->find();
 ```
 ### Decorators
 
-Available decorators for Finders: 
+Decorators available for Finders: 
 * `FlexFqcnFinder\Finder\Decorator\CachedFqcnFinder`
 * `FlexFqcnFinder\Finder\Decorator\FilteringFqcnFinder`
 
-You can decorate your finder (including compositions):
+You can decorate any finder (including compositions):
 ```php
 <?php
 use FlexFqcnFinder\Finder\Decorator\CachedFqcnFinder;
@@ -133,7 +126,7 @@ $fqcns = $cached->find();
 #### Filters
 Filters can be used as a Decorator for Finders and using it is optional.
 
-The filters were designed according to the Specification Pattern. You can chain the following filters using `Filter::by()` or `Filter::anyOf()`:
+All filters have been designed according to the Specification Pattern. You can chain the following filters using `Filter::by()` or `Filter::anyOf()`:
 
 * `apply(Closure $fn)`
 * `belongsToNamespace(string $namespace)`
@@ -155,11 +148,11 @@ The filters were designed according to the Specification Pattern. You can chain 
 * `isUserDefined()`
 * `namespaceEqualsTo(string $namespace)`
 * `not(FqcnSpecification $specification)`
-* `usingTrait(string $trait)`
-* `anyOf(FqcnSpecification $specification, FqcnSpecification ...$specifications)`
-* `allOf(FqcnSpecification $specification, FqcnSpecification ...$specifications)`
-* `and(FqcnSpecification $specification, FqcnSpecification ...$specifications)`
-* `or(FqcnSpecification $specification, FqcnSpecification ...$specifications)`
+* `useTrait(string $trait)`
+* `anyOf(FqcnSpecification ...$specifications)`
+* `allOf(FqcnSpecification ...$specifications)`
+* `and(FqcnSpecification ...$specifications)`
+* `or(FqcnSpecification ...$specifications)`
 
 Any filter can be used with `FlexFqcnFinder\Finder\Decorator\FilteringFqcnFinder` decorator:
 
@@ -171,8 +164,8 @@ use FlexFqcnFinder\Finder\Decorator\FilteringFqcnFinder;
 use FlexFqcnFinder\Filter\Specifications\IsSubClassOf;
 
 $filtered = new FilteringFqcnFinder(
-    new FqcnFinder(new FilesFromDir(__DIR__)),
-    new IsSubClassOf('MyBaseClass')
+    new FqcnFinder(new FilesFromDir(__DIR__)),  //  first param: decorated Finder
+    new IsSubClassOf('MyBaseClass')             // second param: filters to apply
 );
 
 // Or chaining filters:
@@ -224,6 +217,23 @@ MyFilter implements FqcnSpecification
         return false;
     }
 }
+```
+So just use it:
+
+```php
+<?php
+use FlexFqcnFinder\Finder\FqcnFinder;
+use FlexFqcnFinder\Repository\FilesFromDir;
+use FlexFqcnFinder\Finder\Decorator\FilteringFqcnFinder;
+use namespace Foo\MyFilter;
+
+$filtered = new FilteringFqcnFinder(
+    new FqcnFinder(new FilesFromDir(__DIR__)),
+    new MyFilter()
+);
+
+$fqcns = $filtered->find();
+
 ```
 
 ## Contributing
