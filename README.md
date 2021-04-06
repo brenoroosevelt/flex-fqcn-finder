@@ -210,11 +210,7 @@ MyFilter implements FqcnSpecification
 {
     public function isSatisfiedBy(string $fqcn): bool
     {
-        if($fqcn === /* */) {
-            return true;
-        }
-        
-        return false;
+        return $fqcn === /* ... */;
     }
 }
 ```
