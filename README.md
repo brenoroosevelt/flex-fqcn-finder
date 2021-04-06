@@ -7,8 +7,6 @@
 The Flex FQCN Finder allows you to find all the Fully Qualified Class Names (FQCN) available in a project. This package was designed to be flexible and reliable.
 ## Features
 
-This package supports:
-
 - Find classes, traits and interfaces;
 - Search in directories (recursively or not);
 - Apply filters;
@@ -17,7 +15,7 @@ This package supports:
 
 ## Requirements
 
-This package supports the following versions of PHP:
+The following versions of PHP are supported:
 
 * PHP 7.0
 * PHP 7.1
@@ -34,7 +32,7 @@ Via Composer
 $ composer require brenoroosevelt/flex-fqcn-finder
 ```
 ## Usage
-This package provides the `FlexFqcnFinder\Fqcn` helper to compose, create filters and find FQCNs. You can combine the filters, decorators and compositions on your own way.
+Use the `FlexFqcnFinder\Fqcn` helper to apply filters, decorators and compositions on your own way.
 
 ```php
 <?php
@@ -108,7 +106,7 @@ $fqcns = $myFinder->find();
 ```
 ### Decorators
 
-This package provides some decorators: 
+Available decorators for Finders: 
 * `FlexFqcnFinder\Finder\Decorator\CachedFqcnFinder`
 * `FlexFqcnFinder\Finder\Decorator\FilteringFqcnFinder`
 
@@ -163,7 +161,7 @@ The filters were designed according to the Specification Pattern. You can chain 
 * `and(FqcnSpecification $specification, FqcnSpecification ...$specifications)`
 * `or(FqcnSpecification $specification, FqcnSpecification ...$specifications)`
 
-The filters can be used with `FlexFqcnFinder\Finder\Decorator\FilteringFqcnFinder` decorator:
+Any filter can be used with `FlexFqcnFinder\Finder\Decorator\FilteringFqcnFinder` decorator:
 
 ```php
 <?php
