@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace FlexFqcnFinder\Test\Stubs;
 
-class FixedArrayFqcnFinder
+use FlexFqcnFinder\FqcnFinderInterface;
+
+class FixedArrayFqcnFinder implements FqcnFinderInterface
 {
     /**
      * @var array

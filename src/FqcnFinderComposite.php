@@ -25,6 +25,6 @@ class FqcnFinderComposite implements FqcnFinderInterface
             $fqcns = array_merge($fqcns, $fqcnFinder->find());
         }
 
-        return array_unique($fqcns);
+        return array_values(array_unique($fqcns, SORT_REGULAR));
     }
 }

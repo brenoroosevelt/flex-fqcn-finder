@@ -35,7 +35,7 @@ class FilesFromDir implements FileRepositoryInterface
     {
         foreach ($this->iterator as $path) {
             if ($path->isFile()) {
-                yield $path->getPathname();
+                yield realpath($path->getPathname());
             }
         }
     }
