@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace FlexFqcnFinder\Test;
+namespace FlexFqcnFinder\Test\Finder;
 
 use FlexFqcnFinder\Finder\ComposerClassMap;
 use FlexFqcnFinder\Finder\FqcnFinder;
@@ -9,7 +9,7 @@ use FlexFqcnFinder\Finder\GetDeclaredClasses;
 use FlexFqcnFinder\Finder\GetDeclaredInterfaces;
 use FlexFqcnFinder\Finder\GetDeclaredTraits;
 use FlexFqcnFinder\Test\Stubs\FixedRepository;
-use InvalidArgumentException;
+use FlexFqcnFinder\Test\TestCase;
 
 class FindersTest extends TestCase
 {
