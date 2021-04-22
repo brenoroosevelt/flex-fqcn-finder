@@ -3,15 +3,12 @@ declare(strict_types=1);
 
 namespace FlexFqcnFinder\Test\Finder\Decorator;
 
-use FlexFqcnFinder\Filter\Specifications\Apply;
 use FlexFqcnFinder\Finder\Decorator\CachedFqcnFinder;
-use FlexFqcnFinder\Finder\Decorator\FilteringFqcnFinder;
 use FlexFqcnFinder\FqcnFinderInterface;
+use FlexFqcnFinder\Test\Stubs\Psr16ArrayCache;
 use FlexFqcnFinder\Test\Stubs\FixedArrayFqcnFinder;
 use FlexFqcnFinder\Test\TestCase;
 use InvalidArgumentException;
-use Symfony\Component\Cache\Adapter\ArrayAdapter;
-use Symfony\Component\Cache\Psr16Cache;
 
 class CachedFqcnFinderTest extends TestCase
 {
@@ -31,7 +28,7 @@ class CachedFqcnFinderTest extends TestCase
             }
         };
 
-        $cache = new Psr16Cache(new ArrayAdapter());
+        $cache = new Psr16ArrayCache();
 
         $decorator = new CachedFqcnFinder($finder, $cache, 'cacheKey');
         $result1 = $decorator->find();
@@ -46,6 +43,6 @@ class CachedFqcnFinderTest extends TestCase
     {
         $finder = new FixedArrayFqcnFinder([]);
         $this->expectException(InvalidArgumentException::class);
-        new CachedFqcnFinder($finder, $cache = new Psr16Cache(new ArrayAdapter()), '');
+        new CachedFqcnFinder($finder, $cache = new Psr16ArrayCache(), '');
     }
 }
