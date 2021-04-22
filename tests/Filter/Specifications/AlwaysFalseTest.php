@@ -8,7 +8,7 @@ use FlexFqcnFinder\Test\TestCase;
 
 class AlwaysFalseTest extends TestCase
 {
-    public function testAlwaysTrue()
+    public function testAlwaysFalse()
     {
         $filter = new AlwaysFalse();
         $result = $filter->isSatisfiedBy('any');
