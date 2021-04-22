@@ -19,7 +19,7 @@ class FilesFromDirTest extends TestCase
             $basePath . DS . 'Dir1' . DS . 'Dir11' . DS . 'Dir111' . DS . 'Class111.php',
         ];
 
-        $this->assertEquals($expected, $files);
+        $this->assertEmpty(array_diff($expected, $files));
     }
 
     public function testFindFilesInDir()
@@ -32,6 +32,6 @@ class FilesFromDirTest extends TestCase
             $basePath . DS . 'file.php',
         ];
 
-        $this->assertEquals($expected, $files);
+        $this->assertEmpty(array_diff($expected, $files));
     }
 }
