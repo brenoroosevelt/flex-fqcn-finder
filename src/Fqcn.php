@@ -70,9 +70,9 @@ class Fqcn implements FqcnFinderInterface
         return $this;
     }
 
-    public function includeComposerClassMap(string $pathToComposerAutoload): Fqcn
+    public function includeComposerClassMap(): Fqcn
     {
-        $this->finders[] = new ComposerClassMap($pathToComposerAutoload);
+        $this->finders[] = new ComposerClassMap();
         return $this;
     }
 
