@@ -5,7 +5,7 @@ namespace FlexFqcnFinder\Finder;
 
 use Composer\Autoload\ClassLoader;
 use FlexFqcnFinder\FqcnFinderInterface;
-use InvalidArgumentException;
+use ReflectionClass;
 
 /**
  * Including all available classes (vendor + your project); use:
@@ -13,37 +13,11 @@ use InvalidArgumentException;
  */
 class ComposerClassMap implements FqcnFinderInterface
 {
-    /**
-     * @var string The path to your composer 'vendor/autoload.php'
-     */
-    protected $composerAutoloadPath;
-
-    public function __construct(string $composerAutoloadPath)
-    {
-        $this->composerAutoloadPath = $composerAutoloadPath;
-    }
-
     public function find(): array
     {
-        if (!file_exists($this->composerAutoloadPath)) {
-            throw new InvalidArgumentException(
-                sprintf(
-                    "Cannot get Composer class map. Invalid path: %s.",
-                    $this->composerAutoloadPath
-                )
-            );
-        }
-
-        $classLoader = require($this->composerAutoloadPath);
-        if (! $classLoader instanceof ClassLoader) {
-            throw new InvalidArgumentException(
-                sprintf(
-                    "Cannot get Composer class map. Invalid composer autoload: %s.",
-                    $this->composerAutoloadPath
-                )
-            );
-        }
-
-        return array_keys($classLoader->getClassMap());
+        $reflection = new ReflectionClass(ClassLoader::class);
+        $classMap = dirname($reflection->getFileName()) . DIRECTORY_SEPARATOR . "autoload_classmap.php";
+        $classMapArray = require($classMap);
+        return array_keys($classMapArray);
     }
 }

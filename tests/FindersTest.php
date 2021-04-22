@@ -7,6 +7,7 @@ use FlexFqcnFinder\Finder\ComposerClassMap;
 use FlexFqcnFinder\Finder\GetDeclaredClasses;
 use FlexFqcnFinder\Finder\GetDeclaredInterfaces;
 use FlexFqcnFinder\Finder\GetDeclaredTraits;
+use InvalidArgumentException;
 
 class FindersTest extends TestCase
 {
@@ -30,7 +31,7 @@ class FindersTest extends TestCase
 
     public function testComposerClassMap()
     {
-        $finder = new ComposerClassMap(__DIR__ . DS . ".." . DS . "vendor" . DS . "autoload.php");
+        $finder = new ComposerClassMap();
         $this->assertNotEmpty($finder->find());
     }
 }
