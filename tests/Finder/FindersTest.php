@@ -43,6 +43,7 @@ class FindersTest extends TestCase
             FIXTURES_DIR . DS . 'Dir1' . DS . 'Dir11' . DS . 'Dir111' . DS . 'ClassA.php',
             FIXTURES_DIR . DS . 'Dir1' . DS . 'Dir11' . DS . 'Dir111' . DS . 'TraitA.php',
             FIXTURES_DIR . DS . 'Dir1' . DS . 'Dir11' . DS . 'Dir111' . DS . 'InterfaceA.php',
+            FIXTURES_DIR . DS . 'Dir1' . DS . 'Dir11' . DS . 'file.php',
         ]));
 
         $expected = [
