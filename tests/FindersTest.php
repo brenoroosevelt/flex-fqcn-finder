@@ -30,7 +30,7 @@ class FindersTest extends TestCase
 
     public function testComposerClassMap()
     {
-        $finder = new ComposerClassMap(__DIR__ . DS . ".." . DS . "vendor" . DS . "autoload.php" );
+        $finder = new ComposerClassMap(__DIR__ . DS . ".." . DS . "vendor" . DS . "autoload.php");
         $this->assertNotEmpty($finder->find());
     }
 }
