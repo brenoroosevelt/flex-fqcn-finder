@@ -94,8 +94,7 @@ class FqcnTest extends TestCase
 
     public function testFqcnIntegrationTest()
     {
-        $fqcn = Fqcn::new()
-            ->addDirectory(FIXTURES_DIR)
+        $fqcn = Fqcn::fromDir(FIXTURES_DIR)
             ->compose($fixed = new FixedArrayFqcnFinder(['FixedClass']))
             ->includeDeclaredClasses()
             ->includeDeclaredInterfaces()
