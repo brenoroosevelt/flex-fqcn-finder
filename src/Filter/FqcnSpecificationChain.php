@@ -7,6 +7,8 @@ use Closure;
 
 /**
  * @method self apply(Closure $fn)
+ * @method self alwaysTrue()
+ * @method self alwaysFalse()
  * @method self belongsToNamespace(string $namespace)
  * @method self classNameEndsWith(string $value)
  * @method self classNameStartsWith(string $value)
