@@ -16,6 +16,11 @@ class IsSubClassOf implements FqcnSpecification
      */
     protected $class;
 
+    public function __construct(string $class)
+    {
+        $this->class = $class;
+    }
+
     protected function isSatisfiedByReflection(string $fqcn, ReflectionClass $reflectionClass): bool
     {
         return $reflectionClass->isSubclassOf($this->class);
