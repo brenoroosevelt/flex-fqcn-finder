@@ -1,6 +1,12 @@
 {
     "description": "Flexible FQCN Finder",
     "name": "brenoroosevelt/flex-fqcn-finder",
+    "keywords": [
+        "FQCN finder"
+    ],
+    "minimum-stability": "stable",
+    "license": "MIT",
+    "homepage": "https://github.com/brenoroosevelt/flex-fqcn-finder",
     "authors": [
         {
             "name": "Breno Roosevelt",
