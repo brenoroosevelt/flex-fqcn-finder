@@ -33,6 +33,7 @@ use FlexFqcnFinder\Filter\Specifications\UseTrait;
 use FlexFqcnFinder\Test\Fixtures\Dir1\Dir11\Dir111\ClassA;
 use FlexFqcnFinder\Test\TestCase;
 use ReflectionClass;
+use RuntimeException;
 
 class FqcnSpecificationFactoryTest extends TestCase
 {
@@ -80,6 +81,13 @@ class FqcnSpecificationFactoryTest extends TestCase
         $factory = new FqcnSpecificationFactory();
         $instance = $factory->__call($name, $args);
         $this->assertInstanceOf($instanceOfClass, $instance);
+    }
+
+    public function testCreateInvalidSpecification()
+    {
+        $factory = new FqcnSpecificationFactory();
+        $this->expectException(RuntimeException::class);
+        $factory->__call('invalidSpecification', []);
     }
 
     public function testCreateAnd()
