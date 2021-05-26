@@ -22,9 +22,9 @@ class FqcnFinderComposite implements FqcnFinderInterface
     {
         $fqcns = [];
         foreach ($this->fqcnFinders as $fqcnFinder) {
-            $fqcns = array_merge($fqcns, $fqcnFinder->find());
+            $fqcns[] = $fqcnFinder->find();
         }
 
-        return array_values(array_unique($fqcns, SORT_REGULAR));
+        return array_unique(array_merge(...array_values($fqcns)));
     }
 }
