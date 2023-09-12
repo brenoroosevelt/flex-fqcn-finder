@@ -16,7 +16,8 @@ The Flex FQCN Finder allows you to find all the Fully Qualified Class Names (FQC
 
 ## Requirements
 
-The following versions of PHP are supported: `7.0`, `7.1`, `7.2`, `7.3`, `7.4`, `8.0`.
+* The following versions of PHP are supported:  `^8`.
+* For PHP 7.*, please install version 1.0.0
 
 ## Install
 
